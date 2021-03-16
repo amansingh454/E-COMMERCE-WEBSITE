@@ -1,0 +1,210 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block content %}
+<style>
+	.form-horizontal.qtyFrm .control-label {text-align:center;}
+</style>
+<div id="mainBody">
+	<div class="container">
+	<div class="row">
+<!-- Sidebar ================================================== -->
+	<div class="span9">
+    <ul class="breadcrumb">
+    <li><a href="index.html">Home</a> <span class="divider">/</span></li>
+    <li><a href="products.html">Products</a> <span class="divider">/</span></li>
+    <li class="active">product Details</li>
+    </ul>
+	<div class="row">
+			<div id="gallery" class="span3">
+            <a href="{% static 'themes/images/products/large/f1.jpg'%}" title="Fujifilm FinePix S2950 Digital Camera">
+				<img src="{{product.main_photo.url}}" style="width:100%" alt="Fujifilm FinePix S2950 Digital Camera"/>
+            </a>
+			<div id="differentview" class="moreOptopm carousel slide">
+                <div class="carousel-inner">
+                  <div class="item active">
+					  {% if product.optional_photo1 %}
+                   <a href="{{product.optional_photo1.url}}"> <img style="width:29%" src="{{product.optional_photo1.url}}" alt=""/></a>
+					  {% endif %}
+                  </div>
+                  <div class="item">
+					  {% if product.optional_photo2 %}
+                   <a href="{{product.optional_photo2.url}}" > <img style="width:29%" src="{{product.optional_photo2.url}}" alt=""/></a>
+					  {% endif %}
+                  </div>
+					<div class="item">
+					  {% if product.optional_photo3 %}
+                   <a href="{{product.optional_photo3.url}}" > <img style="width:29%" src="{{product.optional_photo3.url}}" alt=""/></a>
+					  {% endif %}
+                  </div>
+                </div>
+			  <a class="left carousel-control" href="#differentview" data-slide="prev">‹</a>
+              <a class="right carousel-control" href="#differentview" data-slide="next">›</a>
+              </div>
+
+			 <div class="btn-toolbar">
+			  <div class="btn-group">
+				<span class="btn"><i class="icon-envelope"></i></span>
+				<span class="btn" ><i class="icon-print"></i></span>
+				<span class="btn" ><i class="icon-zoom-in"></i></span>
+				<span class="btn" ><i class="icon-star"></i></span>
+				<span class="btn" ><i class=" icon-thumbs-up"></i></span>
+				<span class="btn" ><i class="icon-thumbs-down"></i></span>
+			  </div>
+			</div>
+			</div>
+			<div class="span6">
+				<h3>{{product.ProductName}}</h3>
+				<h4>{{product.stock}}</h4>
+				<small></small>
+				<hr class="soft"/>
+				<form class="form-horizontal qtyFrm" method="post" action="{% url  'add_to_cart' product.id %}">
+					{% csrf_token %}
+				  <div class="control-group">
+					<label class="control-label"><span> Price: RS {{product.price}}</span></label>
+					  <div class="controls">
+					<input type="number"  name="quantity" id="quantity" class="span1" placeholder="Qty.">
+					  <button type="submit" class="btn btn-large btn-primary pull-right"> Add to cart <i class=" icon-shopping-cart"></i></button>
+					</div>
+
+				  </div>
+				</form>
+
+				<hr class="soft"/>
+				<h4>{{product.quantity}} items in stock</h4>
+				<hr class="soft clr"/>
+				<p>
+				{{product.description}}
+				</p>
+				<a class="btn btn-small pull-right" href="#detail">More Details</a>
+				<br class="clr"/>
+			<a href="#" name="detail"></a>
+			<hr class="soft"/>
+			</div>
+
+			<div class="span9">
+            <ul id="productDetail" class="nav nav-tabs">
+              <li class="active"><a href="#home" data-toggle="tab">Product Details</a></li>
+              <li><a href="#profile" data-toggle="tab">Related Products</a></li>
+            </ul>
+            <div id="myTabContent" class="tab-content" style="font-size:19px;">
+              <div class="tab-pane fade active in" id="home">
+			  <h4>Product Information</h4>
+                <table class="table table-bordered">
+				<tbody>
+				<tr class="techSpecRow"><th colspan="2">Product Details</th></tr>
+
+				<tr class="techSpecRow"><td class="techSpecTD1">Brand: </td><td class="techSpecTD2">{{product.brand}}</td></tr>
+				<tr class="techSpecRow"><td class="techSpecTD1">Category:</td><td class="techSpecTD2">{{product.category}}</td></tr>
+				<tr class="techSpecRow"><td class="techSpecTD1">COLLECTION:</td><td class="techSpecTD2">{{product.stock}}</td></tr>
+				<tr class="techSpecRow"><td class="techSpecTD1">Color: </td><td class="techSpecTD2">{{product.color}}</td></tr>
+				<tr class="techSpecRow"><td class="techSpecTD1">Original Price: </td><td class="techSpecTD2">{{product.price}}</td></tr>
+				<tr class="techSpecRow"><td class="techSpecTD1">Sales Price: </td><td class="techSpecTD2">{{product.sale_price}}</td></tr>
+				<tr class="techSpecRow"><td class="techSpecTD1">Discount:</td><td class="techSpecTD2">{{product.Discount_percent}} %</td></tr>
+				<tr class="techSpecRow"><td class="techSpecTD1">Return Policy:</td><td class="techSpecTD2">{{product.return_policy}}</td></tr>
+				<tr class="techSpecRow"><td class="techSpecTD1">Seller Name:</td><td class="techSpecTD2">{{product.seller.user.username}} </td></tr>
+				<tr class="techSpecRow"><td class="techSpecTD1">Shop  Name:</td><td class="techSpecTD2">{{product.seller.shop_name}} </td></tr>
+				<tr class="techSpecRow"><td class="techSpecTD1">Released on:</td><td class="techSpecTD2">{{product.publish_date}}</td></tr>
+
+				</tbody>
+				</table>
+
+				<h3>Features</h3>
+				<p>
+				{{product.description}}
+				</p>
+				<h3>SALES</h3>
+				  <h4>DISCOUNT PERCENT:{{product.Discount_percent}}%</h4>
+				  <h3>T&C:</h3><h4>{{product.Terms_conditions}}></h4>
+				  <h3>OFFER DESCRIPTION:</h3><h4>{{product.offer_description}}</h4>
+
+
+
+				<h3>Manufacturer's Description </h3>
+				<h4>Name:{{product.seller.user.first_name}} {{product.seller.user.last_name}}</h4>
+				   <h4>Age:{{product.seller.age}}</h4>
+				   <h4>Gender:{{product.seller.gender}}</h4>
+				  <h4>Shop Name:{{product.seller.shop_name}}</h4>
+				  <h4>Mobile Number:{{product.seller.mobile_number}}</h4>
+				  <h4>Shop GST No:{{product.seller.shop_GST_no}}</h4>
+				  <h4>Seller aadhar card number:{{product.seller.aadhar_card_no}}</h4>
+
+              </div>
+		<div class="tab-pane fade" id="profile">
+		<div id="myTab" class="pull-right">
+		 <a href="#listView" data-toggle="tab"><span class="btn btn-large"><i class="icon-list"></i></span></a>
+		 <a href="#blockView" data-toggle="tab"><span class="btn btn-large btn-primary"><i class="icon-th-large"></i></span></a>
+		</div>
+		<br class="clr"/>
+		<hr class="soft"/>
+		<div class="tab-content">
+			<div class="tab-pane" id="listView">
+				{% for product in products %}
+				<div class="row">
+					<div class="span2">
+						<img src="{{product.main_photo.url}}" alt=""/>
+					</div>
+					<div class="span4">
+						<h3>New | Available</h3>
+						<hr class="soft"/>
+						<h5>{{product.ProductName}}</h5>
+						<p>
+						{{product.description|slice:":70"}}
+						</p>
+						<a class="btn btn-small pull-right" href="{% url 'product_detail' product.id %}">View Details</a>
+						<br class="clr"/>
+					</div>
+					<div class="span3 alignR">
+					<form class="form-horizontal qtyFrm">
+					<h3>New Price {{product.sale_price}}</h3>
+					<div class="btn-group">
+					  <a href="{% url 'add_to_cart' product.id %}" class="btn btn-large btn-primary"> Add to <i class=" icon-shopping-cart"></i></a>
+					  <a href="{% url 'product_detail' product.id %}" class="btn btn-large"><i class="icon-zoom-in"></i></a>
+					 </div>
+						</form>
+					</div>
+			</div>
+				{% endfor %}
+			<hr class="soft"/>
+		</div>
+			<div class="tab-pane  active" id="blockView">
+
+		<ul class="thumbnails">
+			{% if  products %}
+				  {% for product in products %}
+			<li class="span3">
+			  <div class="thumbnail">
+
+				<a href="product_details.html"><img src="{{product.main_photo.url}}" style="height:160px" alt=""/></a>
+				<div class="caption">
+				  <h5>{{product.ProductName.upper}}</h5>
+				   <h4 style="text-align:center"><a class="btn" href="{% url 'product_detail' product.id %}"> <i class="icon-zoom-in"></i></a> <a class="btn" href="{% url 'add_to_cart' product.id %}">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">Rs {{ product.price}}</a></h4>
+					 <p>
+					{{ product.description|slice:":50"}}
+				  </p>
+				</div>
+				  {% endfor %}
+				  {% else %}
+				  <center>
+				  <h2> No products to display </h2>
+					  </center>
+
+			  </div>
+				{% endif %}
+			</li>
+		  </ul>
+	<hr class="soft"/>
+
+	</div>
+
+
+		</div>
+				<br class="clr">
+			</div>
+		</div>
+          </div>
+
+	</div>
+</div>
+</div> </div>
+</div>
+{% endblock %}

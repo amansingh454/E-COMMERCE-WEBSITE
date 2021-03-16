@@ -1,0 +1,58 @@
+{% extends "partials/dashboard_base.html" %}
+{% load static %}
+{% block dashboard %}
+<div class="container">
+    <div class="row">
+        {% include 'partials/alerts.html' %}
+        {% if user.is_authenticated %}
+        <div class="col-md-6 mx-auto py-4">
+            <div class="card">
+                <div class="card-header">
+                    <h1>Welcome to Customer Dashboard</h1>
+                </div>
+                <div class="card-body">
+                    <table class="table table-bordered">
+                        <tbody style="font-size:16px;">
+                            <tr>
+                                <th>User ID</th>
+                                <td>{{data.id}}</td>
+                            </tr>
+                            <tr>
+                                <th>Username</th>
+                                <td>{{data.user.username}}</td>
+                            </tr>
+                            <tr>
+                                <th>Full Name</th>
+                                <td>{{data.user.first_name}} {{data.user.last_name}}</td>
+                            </tr>
+                            <tr>
+                                <th>Gender</th>
+                                <td>{{data.gender}}</td>
+                            </tr>
+                            <tr>
+                                <th>Age</th>
+                                <td>{{data.age}}</td>
+                            </tr>
+                            <tr>
+                                <th>city</th>
+                                <td>{{data.city}}</td>
+                            </tr>
+                            <tr>
+                                <th>Mobile Number</th>
+                                <td>{{data.mobile_number}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <center>
+            <h2>login man!!</h2>
+        </center>
+        {% endif %}
+    </div>
+
+</div>
+{% endblock %}

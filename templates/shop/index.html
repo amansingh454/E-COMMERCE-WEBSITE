@@ -1,0 +1,139 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+<style>
+</style>
+{% block content %}
+{% include 'partials/offer_slide.html' %}
+<div id="mainBody">
+	<div class="container">
+	<div class="row">
+
+<!-- Sidebar ================================================== -->
+	{% include 'partials/common item.html' %}
+		<div class="span9">
+			<div class="well well-small">
+				{% include 'partials/alerts.html' %}
+			<h4>Featured Products <small class="pull-right">{{total_products}}+ featured products</small></h4>
+			<div class="row-fluid">
+			<div id="featured" class="carousel slide">
+			<div class="carousel-inner">
+				<div class="item active">
+			  <ul class="thumbnails">
+				<li class="span3">
+				  <div class="thumbnail">
+				  <i class="tag"></i>
+					<a href="product_details.html"><img src="{{latest_product.0.main_photo.url}}" alt=""></a>
+					<div class="caption">
+					  <h5>{{product.0.name}}</h5>
+						{% for prod in product|slice:":1"%}
+					  <h4 style="text-align:center"><a class="btn" href="{% url 'product_detail' prod.id %}"> <i class="icon-zoom-in"></i></a> <a class="btn" href="{% url 'add_to_cart' prod.id %}">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">RS{{latest_product.0.price}}</a></h4>
+					{% endfor %}
+					</div>
+				  </div>
+				</li>
+			  </ul>
+			  </div>
+				{% for product in latest_product %}
+			   <div class="item">
+			  <ul class="thumbnails">
+				<li class="span3">
+				  <div class="thumbnail">
+				  <i class="tag"></i>
+					<a href="product_details.html"><img src="{{product.main_photo.url}}" alt=""></a>
+					<div class="caption">
+					  <h5>{{product.ProductName}}</h5>
+					  <h4 style="text-align:center"><a class="btn" href="{% url 'product_detail' product.id %}"> <i class="icon-zoom-in"></i></a> <a class="btn" href="{% url 'add_to_cart' product.id %}">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">RS{{product.price}}</a></h4>
+					</div>
+				  </div>
+				</li>
+			  </ul>
+			  </div>
+				{% endfor %}
+			</div>
+			  <a class="left carousel-control" href="#featured" data-slide="prev">‹</a>
+			  <a class="right carousel-control" href="#featured" data-slide="next">›</a>
+			  </div>
+
+			  </div>
+		</div>
+		<h4>Latest Products </h4>
+			  <ul class="thumbnails">
+				{% for product in latest_product %}
+				<li class="span3">
+
+				  <div class="thumbnail ">
+					<a  href="product_details.html"><img src="{{ product.main_photo.url }}" style="height:119px;width:170px;" alt=""/></a>
+					<div class="caption" style="height:218px;width:200px;">
+					  <h5>{{ product.ProductName.upper }}</h5>
+					  <h4 style="text-align:center"><a class="btn" href="{% url 'product_detail' product.id %}"> <i class="icon-zoom-in"></i></a> <a class="btn" href="{% url 'add_to_cart' product.id %}">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">RS{{product.price}}</a></h4>
+						<p>
+						{{ product.description|slice:":50" }}
+				  		</p>
+					</div>
+				  </div>
+
+				</li>
+				  {% endfor %}
+
+			  </ul>
+
+		</div>
+		</div>
+	</div>
+</div>
+<!--<div id="secectionBox">
+<link rel="stylesheet" href="themes/switch/themeswitch.css" type="text/css" media="screen" />
+<script src="themes/switch/theamswitcher.js" type="text/javascript" charset="utf-8"></script>
+	<div id="themeContainer">
+	<div id="hideme" class="themeTitle">Style Selector</div>
+	<div class="themeName">Oregional Skin</div>
+	<div class="images style">
+	<a href="{% static 'themes/css/#' %}" name="bootshop"><img src="{% static 'themes/switch/images/clr/bootshop.png'%}" alt="bootstrap business templates" class="active"></a>
+	<a href="{% static 'themes/css/#' %}" name="businessltd"><img src="{% static 'themes/switch/images/clr/businessltd.png'%}" alt="bootstrap business templates" class="active"></a>
+	</div>
+	<div class="themeName">Bootswatch Skins (11)</div>
+	<div class="images style">
+		<a href="{% static 'themes/css/#' %}" name="amelia" title="Amelia"><img src="{% static 'themes/switch/images/clr/amelia.png'%}" alt="bootstrap business templates"></a>
+		<a href="{% static 'themes/css/#' %}" name="spruce" title="Spruce"><img src="{% static 'themes/switch/images/clr/spruce.png'%}" alt="bootstrap business templates" ></a>
+		<a href="{% static 'themes/css/#' %}" name="superhero" title="Superhero"><img src="{% static 'themes/switch/images/clr/superhero.png'%}" alt="bootstrap business templates"></a>
+		<a href="{% static 'themes/css/#' %}" name="cyborg"><img src="{% static 'themes/switch/images/clr/cyborg.png'%}" alt="bootstrap business templates"></a>
+		<a href="{% static 'themes/css/#' %}" name="cerulean"><img src="{% static 'themes/switch/images/clr/cerulean.png'%}" alt="bootstrap business templates"></a>
+		<a href="{% static 'themes/css/#' %}" name="journal"><img src="{% static 'themes/switch/images/clr/journal.png'%}" alt="bootstrap business templates"></a>
+		<a href="{% static 'themes/css/#' %}" name="readable"><img src="{% static 'themes/switch/images/clr/readable.png'%}" alt="bootstrap business templates"></a>
+		<a href="{% static 'themes/css/#' %}" name="simplex"><img src="{% static 'themes/switch/images/clr/simplex.png'%}" alt="bootstrap business templates"></a>
+		<a href="{% static 'themes/css/#' %}" name="slate"><img src="{% static 'themes/switch/images/clr/slate.png'%}" alt="bootstrap business templates"></a>
+		<a href="{% static 'themes/css/#' %}" name="spacelab"><img src="{% static 'themes/switch/images/clr/spacelab.png'%}" alt="bootstrap business templates"></a>
+		<a href="{% static 'themes/css/#' %}" name="united"><img src="{% static 'themes/switch/images/clr/united.png'%}" alt="bootstrap business templates"></a>
+		<p style="margin:0;line-height:normal;margin-left:-10px;display:none;"><small>These are just examples and you can build your own color scheme in the backend.</small></p>
+	</div>
+	<div class="themeName">Background Patterns </div>
+	<div class="images patterns">
+		<a href="{% static 'themes/css/#' %}" name="pattern1"><img src="{% static 'themes/switch/images/pattern/pattern1.png'%}" alt="bootstrap business templates" class="active"></a>
+		<a href="{% static 'themes/css/#' %}" name="pattern2"><img src="{% static 'themes/switch/images/pattern/pattern2.png'%}" alt="bootstrap business templates"></a>
+		<a href="{% static 'themes/css/#' %}" name="pattern3"><img src="{% static 'themes/switch/images/pattern/pattern3.png'%}" alt="bootstrap business templates"></a>
+		<a href="{% static 'themes/css/#' %}" name="pattern4"><img src="{% static 'themes/switch/images/pattern/pattern4.png'%}" alt="bootstrap business templates"></a>
+		<a href="{% static 'themes/css/#' %}" name="pattern5"><img src="{% static 'themes/switch/images/pattern/pattern5.png'%}" alt="bootstrap business templates"></a>
+		<a href="{% static 'themes/css/#' %}" name="pattern6"><img src="{% static 'themes/switch/images/pattern/pattern6.png'%}" alt="bootstrap business templates"></a>
+		<a href="{% static 'themes/css/#' %}" name="pattern7"><img src="{% static 'themes/switch/images/pattern/pattern7.png'%}" alt="bootstrap business templates"></a>
+		<a href="{% static 'themes/css/#' %}" name="pattern8"><img src="{% static 'themes/switch/images/pattern/pattern8.png'%}" alt="bootstrap business templates"></a>
+		<a href="{% static 'themes/css/#' %}" name="pattern9"><img src="{% static 'themes/switch/images/pattern/pattern9.png'%}" alt="bootstrap business templates"></a>
+		<a href="{% static 'themes/css/#' %}" name="pattern10"><img src="{% static 'themes/switch/images/pattern/pattern10.png'%}" alt="bootstrap business templates"></a>
+
+		<a href="{% static 'themes/css/#' %}" name="pattern11"><img src="themes/switch/images/pattern/pattern11.png" alt="bootstrap business templates"></a>
+		<a href="{% static 'themes/css/#' %}" name="pattern12"><img src="themes/switch/images/pattern/pattern12.png" alt="bootstrap business templates"></a>
+		<a href="{% static 'themes/css/#' %}" name="pattern13"><img src="themes/switch/images/pattern/pattern13.png" alt="bootstrap business templates"></a>
+		<a href="{% static 'themes/css/#' %}" name="pattern14"><img src="themes/switch/images/pattern/pattern14.png" alt="bootstrap business templates"></a>
+		<a href="{% static 'themes/css/#' %}" name="pattern15"><img src="themes/switch/images/pattern/pattern15.png" alt="bootstrap business templates"></a>
+
+		<a href="{% static 'themes/css/#' %}" name="pattern16"><img src="themes/switch/images/pattern/pattern16.png" alt="bootstrap business templates"></a>
+		<a href="{% static 'themes/css/#' %}" name="pattern17"><img src="themes/switch/images/pattern/pattern17.png" alt="bootstrap business templates"></a>
+		<a href="{% static 'themes/css/#' %}" name="pattern18"><img src="themes/switch/images/pattern/pattern18.png" alt="bootstrap business templates"></a>
+		<a href="{% static 'themes/css/#' %}" name="pattern19"><img src="themes/switch/images/pattern/pattern19.png" alt="bootstrap business templates"></a>
+		<a href="{% static 'themes/css/#' %}" name="pattern20"><img src="themes/switch/images/pattern/pattern20.png" alt="bootstrap business templates"></a>
+
+	</div>
+	</div>
+</div>
+<span id="themesBtn"></span>-->
+
+{% endblock %}

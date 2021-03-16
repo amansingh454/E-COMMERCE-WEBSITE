@@ -1,0 +1,177 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block content %}
+{% load bootstrap4 %}
+<center>
+<div class="container-fluid px-0">
+  <img src="https://source.unsplash.com/900x300/?map" class="d-block w-100" alt="...">
+</div>
+<div class="container">
+<h1 class="text-center">Update Product:</h1>
+<form action="{% url 'update_products' product.id %}" method="post" enctype="multipart/form-data">
+   {% csrf_token %}
+    <div class="form-group">
+      <label for="product_name">Product Name</label>
+      <input type="text" class="form-control" id="product_name" name="product_name" value="{{product.ProductName}}"placeholder="Product Name">
+    </div>
+    <div class="form-group">
+      <label for="category">Product Category:</label>
+      <select class="form-control" id="category" name="category">
+        {% for item in CATEGORY_CHOICE %}
+            {% if item == product.category %}
+        <option value="{{item}}" selected>{{item}}</option>
+          {% else %}
+          <option value="{{item}}">{{item}}</option>
+          {% endif %}
+        {% endfor %}
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="brand">Brand: </label>
+      <select class="form-control" id="brand" name="brand">
+            {% for item in COMPANY_NAME %}
+            {% if item == product.brand %}
+        <option value="{{item}}" selected>{{item}}</option>
+          {% else %}
+          <option value="{{item}}">{{item}}</option>
+          {% endif %}
+            {% endfor %}
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="color">Product Color:</label>
+      <select class="form-control" id="color" name="color">
+        {% for item in PRODUCT_COLOR %}
+            {% if item == product.color %}
+        <option value="{{item}}" selected>{{item}}</option>
+          {% else %}
+          <option value="{{item}}">{{item}}</option>
+          {% endif %}
+        {% endfor %}
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="availability">Product Availability: </label>
+      <select class="form-control" id="availability" name="availability">
+        {% for item in AVAILABILITY_CHOICE %}
+            {% if item == product.availability %}
+                <option value="{{item}}" selected>{{item}}</option>
+          {% else %}
+          <option value="{{item}}">{{item}}</option>
+          {% endif %}
+        {% endfor %}
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="price">Price:</label>
+      <input type="price" class="form-control" id="price" name="price"value="{{product.price}}" placeholder="Enter Price">
+    </div>
+    <div class="form-group">
+      <label for="delivery_charge">Delivery Charge:</label>
+      <input type="price" class="form-control" id="delivery_charge" name="delivery_charge" value="{{product.delivery_charge}}"placeholder="Enter Delivery Charge">
+    </div>
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea class="form-control" id="description" rows="4" name="description"  placeholder="Description">
+          {{product.description}}
+      </textarea>
+    </div>
+    <div class="form-group">
+      <label for="quantity">Quantity</label>
+      <input type="quantity" class="form-control" id="quantity" name="quantity" value="{{product.quantity}}" placeholder="Quantity">
+    </div>
+
+    <div class="form-group">
+      <label for="return_policy">Return Policy: </label>
+      <select class="form-control" id="return_policy" name="return_policy">
+        {% for item in RETURN_POLICY %}
+          {% if item == product.return_policy %}
+        <option value="{{item}}" selected>{{item}}</option>
+          {% else %}
+          <option value="{{item}}">{{item}}</option>
+          {% endif %}
+        {% endfor %}
+         </select>
+    </div>
+    <div class="form-group">
+      <label for="Discount_percent">Discount Percent:</label>
+      <input type="Discount_percent" class="form-control" id="Discount_percent" name="Discount_percent" value="{{product.Discount_percent}}" placeholder="Enter Discount Percent">
+    </div>
+    <div class="form-group">
+      <label for="Terms_conditions">OFFERS T&C</label>
+      <textarea class="form-control" id="Terms_conditions" rows="4" name="Terms_conditions" placeholder="T&C">
+          {{product.Terms_conditions}}
+      </textarea>
+    </div>
+    <div class="form-group">
+      <label for="offer_description">Offer Description</label>
+      <textarea class="form-control" id="offer_description" rows="4" name="offer_description" placeholder="T&C">
+          {{product.offer_description}}
+      </textarea>
+    </div>
+
+
+    <div class="form-group">
+      <label for="publish_date">Publish_Date</label>
+      <input type="date" class="form-control" id="publish_date" name="publish_date" placeholder="publish_date">
+    </div>
+    <div class="form-group">
+        {% if product.main_photo %}
+        <img src="{{product.main_photo.url}}" alt="">
+         {% endif %}
+      <label for="main_photo">Main_Photo</label>
+      <input type="file" class="form-control" id="main_photo" name="main_photo" placeholder="main_photo">
+    </div>
+    <div class="form-group">
+        {% if product.optional_photo1 %}
+        <img src="{{product.optional_photo1.url}}" alt=" photoshop">
+         {% endif %}
+      <label for="optional_photo1"> optional_photo1</label>
+      <input type="file" class="form-control" id="optional_photo1" name="optional_photo1">
+    </div>
+    <div class="form-group">
+        {% if product.optional_photo2 %}
+        <img src="{{product.optional_photo2.url}}" alt="">
+         {% endif %}
+      <label for="optional_photo2">optional_photo2</label>
+      <input type="file" class="form-control" id="optional_photo2" name="optional_photo2">
+    </div>
+    <div class="form-group">
+        {% if product.optional_photo3 %}
+        <img src="{{product.optional_photo3.url}}" alt="">
+        {% endif %}
+      <label for="optional_photo3">optional_photo3</label>
+      <input type="file" class="form-control" name="optional_photo3" id="optional_photo3">
+    </div>
+      <div class="form-group">
+      <input type="submit" name="Update PRODUCT" value="SAVE CHANGES" class="btn btn-primary" style="width:50%;border-radius:20px;">
+    </div>
+
+</form>
+</div>
+</center>
+{% endblock %}
+<!--{% load bootstrap4 %}
+<div class="container">
+    <center>
+    <div class="row">
+        <div class="col-md-6 mx-auto bg-light my-4">
+            <h1>Add Product</h1>
+            <form action="{% url 'add_products'%}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% for errors in form.errors %}
+                    {{ errors}}
+                {% endfor %}
+                {% for errors in non_field.errors %}
+                    {{ errors}}
+                {% endfor %}
+                {% for field in form %}
+                    {% bootstrap_field field %}
+                {% endfor %}
+
+                <input type="submit" value="Add Product" class="btn btn-primary">
+            </form>
+            </center>
+        </div>
+    </div>
+</div>-->

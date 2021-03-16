@@ -1,0 +1,175 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block content %}
+<style xmlns="http://www.w3.org/1999/html">
+	div.caption{
+	height:260px;
+	width:200px;
+	}
+</style>
+<div id="mainBody">
+	<div class="container">
+	<div class="row">
+		{% include 'partials/alerts.html'%}
+<!-- Sidebar ================================================== -->
+	<div class="span9">
+    <ul class="breadcrumb">
+		<li><a href="{% url 'index' %}">Home</a> <span class="divider">/</span></li>
+		<li class="active">My Added Products</li>
+    </ul>
+	<h3> Products Name <small class="pull-right"> {{total_products}} products are available </small></h3>
+	<hr class="soft"/>
+		<center>
+		<h2>Search your product by filter</h2>
+		<form action=" ">
+			<div class="form-row">
+				<div class="col-md-3 mb-3">
+			  	<label for="price_range">Price Range</label>
+			  	<select class="custom-select" id="price_range" name="price_range">
+					<option selected="true" disabled="disabled">Price range</option>
+				  {% for item in PRICE_RANGE %}
+					<option>{{item}}</option>
+				  {% endfor %}
+				</select>
+				</div>
+				<div class="col-md-3 mb-3">
+				  <label for="category">Category</label>
+				  <select class="custom-select" id="category" name="category">
+					  <option selected="true" disabled="disabled">Category</option>
+					{% for item in CATEGORY_CHOICE %}
+						<option>{{item}}</option>
+				    {% endfor %}
+				  </select>
+				</div>
+			<div class="form-row">
+				<div class="col-md-6 mb-3">
+				  <label for="brand">Brand</label>
+				  <select class="custom-select" id="brand" name="brand">
+					  <option selected="true" disabled="disabled">company</option>
+					{% for item in COMPANY_NAME %}
+						<option>{{item}}</option>
+					  {% endfor %}
+				  </select>
+				</div>
+			</div>
+				<button class="btn btn-primary" type="submit">Search</button>
+			</div>
+		</form>
+	</center>
+		<div id="myTab" class="pull-right">
+ <a href="#listView" data-toggle="tab"><span class="btn btn-large"><i class="icon-list"></i></span></a>
+ <a href="#blockView" data-toggle="tab"><span class="btn btn-large btn-primary"><i class="icon-th-large"></i></span></a>
+</div>
+<br class="clr"/>
+<div class="tab-content">
+	<div class="tab-pane" id="listView">
+		{% if products %}
+			{% for product in products %}
+		<div class="row">
+			<div class="span2">
+				<img src="{{product.main_photo.url}}" style="height:160px" alt=""/>
+			</div>
+			<div class="span4">
+				<h3>New | Available</h3>
+				<hr class="soft"/>
+				<h5>{{product.ProductName}} </h5>
+				<p>
+				{{product.description|slice:":100"}}
+				</p>
+				<a class="btn btn-small pull-right" href="{% url 'product_detail' product.id %}">View Details</a>
+				<br class="clr"/>
+			</div>
+			<div class="span3 alignR">
+			<form class="form-horizontal qtyFrm">
+			<h3> Rs {{product.price}}</h3>
+			  <a href="{% url 'update_products' product.id %}" class="btn btn-large btn-primary"> Update</a>
+			  <a href="{% url 'delete' %}?id={{product.id}}" class="btn btn-danger"></i> Delete</a>
+
+				</form>
+			</div>
+		</div>
+		{% endfor %}
+			{% endif %}
+	</div>
+
+	<div class="tab-pane  active" id="blockView">
+
+		<ul class="thumbnails">
+			{% if  products %}
+				  {% for product in products %}
+			<li class="span3">
+			  <div class="thumbnail">
+
+				<a href="product_details.html"><img src="{{product.main_photo.url}}" style="height:160px" alt=""/></a>
+				<div class="caption">
+				  <h5>{{product.ProductName.upper}}</h5>
+				   <h4 style="text-align:center"><a class="btn" href="{% url 'product_detail' product.id %}"> <i class="icon-zoom-in"></i></a> <a class="btn" href="{% url 'update_products' product.id %}">Update</a> <a class="btn" href="{% url 'delete' %}?pid={{product.id}}">Delete</a><a class="btn btn-primary" href="#">Rs {{ product.price}}</a></h4>
+
+					<p>
+					{{ product.description|slice:":50" }}
+				  </p>
+				</div>
+				  {% endfor %}
+				  {% else %}
+				  <center>
+				  <h2> No products to display </h2>
+					  </center>
+
+			  </div>
+				{% endif %}
+			</li>
+		  </ul>
+	<hr class="soft"/>
+
+	</div>
+
+</div>
+
+	<a href="{% url 'compare'%}" class="btn btn-large pull-right">Compare Product</a>
+<section id="pagination">
+	<div class="row">
+	  <div class="col-md-12">
+		  {% if products_per_page.has_other_pages %}
+        <ul class="pagination">
+          {% if products_per_page.has_previous %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{products_per_page.previous_page_number}}">&laquo;</a>
+          </li>
+          {% else %}
+          <li class="page-item disabled">
+            <a class="page-link">&laquo</a>
+          </li>
+          {% endif %}
+          {% for i in products_per_page.paginator.page_range %}
+          	{% if products_per_page.number == i %}
+          	<li class="page-item active">
+           	 	<a class="page-link">{{i}}</a>
+          	</li>
+			{% else %}
+			<li class="page-item">
+          		<a class="page-link" href="?page={{i}}">{{i}}</a>
+        	</li>
+          {% endif %}
+          {% endfor %}
+          {% if products_per_page.has_next %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{ products_per_page.next_page_number}}">&laquo</a>
+          </li>
+          {% else %}
+          <li class="page-item disabled">
+            <a class="page-link">&raquo;</a>
+          </li>
+          {% endif %}
+
+        </ul>
+    </div>
+	</div>
+	  {% endif %}
+</section>
+
+</div>
+</div>
+</div>
+</div>
+{% endblock %}
+<!-- MainBody End ============================= -->

@@ -1,0 +1,20 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <center>
+        <div class="col-md-6 mx-auto p-2 my-3 text-center"  style="box-shadow:0px 0px 10px gray;">
+            <img src="{% static 'images/success.gif' %}" height="300" width="300">
+            <h1 class="alert alert-success" style="width:60%;">PAYMENT SUCCESSFULL</h1>
+            <div class="my-1">
+                <a href="{% url 'products' %}" class="btn btn-success" style="margin-bottom:15px;">Continue Shopping</a>
+                <a href="{% url 'custdashboard' %}" class="btn btn-primary" style="margin-bottom:15px;">Go to Dashboard</a>
+            </div>
+
+        </div>
+            </center>
+    </div>
+</div>
+
+{% endblock %}

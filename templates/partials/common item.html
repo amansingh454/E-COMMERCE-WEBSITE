@@ -1,0 +1,105 @@
+{% load static %}
+<div id="sidebar" class="span3">
+		<div class="well well-small"><a id="myCart" href="{% url 'cart_data' %}"><img src="{% static 'themes/images/ico-cart.png' %}" alt="cart">{{items}} Items in your cart  <span class="badge badge-warning pull-right">Rs{{sale_price}}</span></a></div>
+		<ul id="sideManu" class="nav nav-tabs nav-stacked">
+			{% for keys,values in product_by_name.items %}
+				{% for key,val in values.items %}
+			<li class="subMenu open"><a>{{keys}}<i class="icon-chevron-right"></i>[{{key}}]</a>
+				<ul style="display:none">
+					{% for keyss,vals in val.items %}
+						<li><a class="active"  href="{% url 'product_by_category' %}"><i class="icon-chevron-right"></i>{{keyss}} [{{vals}}] </a></li>
+						{% endfor %}
+
+				</ul>
+			</li>
+			{% endfor %}
+			{% endfor %}
+		</ul>
+	<br/>
+	<center>
+		<p style="font-size:18px;">
+			<bold>Latest Products</bold>
+		</p>
+		</center>
+		  <div class="thumbnail">
+			  {% if latest_product %}
+			  	{% for product in latest_product|slice:":3" %}
+			  		{% if product.main_photo %}
+						<img src="{{product.main_photo.url}}" alt=""/>
+			  		{% else %}
+			  			<img src="{% static 'images/profile pic1.jpg' %}"
+			  		{% endif %}
+			  		<div class="caption">
+					  	<h5>{{ product.ProductName.upper }}</h5>
+						<h4 style="text-align:center"><a class="btn" href="{% url 'product_detail' product.id %}"> <i class="icon-zoom-in"></i></a> <a class="btn" href="{% url 'add_to_cart' product.id %}">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">RS {{ product.price }}</a></h4>
+						 <p>
+							 {{ product.description|slice:":50" }}
+						 </p>
+					</div>
+			  	{% endfor %}
+			  {% endif %}
+		  </div><br/>
+	</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Sidebar ================================================== -->
+	<!--<div id="sidebar" class="span3">
+		<div class="well well-small"><a id="myCart" href="product_summary.html"><img src="themes/images/ico-cart.png" alt="cart">3 Items in your cart  <span class="badge badge-warning pull-right">$155.00</span></a></div>
+		<ul id="sideManu" class="nav nav-tabs nav-stacked">
+			{% for item in category %}
+			<li class="subMenu open">
+				<li><a href="products.html" {{ item | first }}><i class="icon-chevron-right"></i></a></li>
+					<ul>
+						<li><a class="active" href="products.html"><i class="icon-chevron-right"></i>Cameras (100) </a></li>
+					</ul>
+			</li>
+			<li class="subMenu open">
+				<a>{{item|slice:"1:"}}<i class="icon-chevron-right"></i></a>
+				<ul style="display:none">
+				<li><a href="products.html"><i class="icon-chevron-right"></i>Women's Clothing</a></li>
+				</ul>
+			</li>
+			{% endfor %}
+		</ul>
+		<br/>
+		  <div class="thumbnail">
+			<img src="themes/images/products/panasonic.jpg" alt="Bootshop panasonoc New camera"/>
+			<div class="caption">
+			  <h5>Panasonic</h5>
+				<h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">$222.00</a></h4>
+			</div>
+		  </div><br/>
+			<div class="thumbnail">
+				<img src="themes/images/products/kindle.png" title="Bootshop New Kindel" alt="Bootshop Kindel">
+				<div class="caption">
+				  <h5>Kindle</h5>
+				    <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">$222.00</a></h4>
+				</div>
+			  </div><br/>
+	</div>-->

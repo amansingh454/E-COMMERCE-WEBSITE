@@ -1,0 +1,99 @@
+{% extends "partials/dashboard_base.html" %}
+{% load static %}
+{% load bootstrap4 %}
+{% block dashboard %}
+{% if user.is_authenticated %}
+<div class="container-fluid">
+    <div class="row">
+        <center>
+        <div class="col-md-12 bg-img py-5 text-center text-light">
+            <h1>Dashboard &gt; Edit Profile</h1>
+        </div>
+        <div class="col-md-6 mx-auto p-3 bg-light my-2">
+            <div class="text-center">
+                {% if data.image %}
+                <img src="{{data.image.url}}" style="height:150px;width:150px;border-radius:50%">
+                {% else %}
+                <img src="{% static 'images/profile pic2.jpg' %}" style="height:150px;width:150px;border-radius:50%">
+                {% endif %}
+            </div>
+            <form action="{% url 'customer_edit_profile'%}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% include 'partials/alerts.html'%}
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>First Name</label>
+                            <input type="text" class="form-control" name="fname" placeholder="Enter First Name" value="{{user.first_name}}">
+                        </div>
+                        <div class="col-md-6">
+                            <label>Last Name</label>
+                            <input type="text" class="form-control" name="lname" placeholder="Enter Last Name" value="{{user.last_name}}">
+                        </div>
+                        <div class="col-md-6">
+                            <label>Email</label>
+                            <input type="email" class="form-control" name="email" placeholder="Enter Email" value="{{user.email}}">
+                        </div>
+                        <div class="col-md-6">
+                            <label>Profile Picture</label>
+                            <input type="file" class="form-control" name="image">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Contact Number</label>
+                            <input type="text" value="{{data.mobile_number}}" class="form-control" name="contact" placeholder="Enter Contact Number" pattern="[0-9]{10}" title="Number must contain 10 digits only!!">
+                        </div>
+                        <div class="col-md-6">
+                            <label>Age (in years)</label>
+                            <input type="number" class="form-control" name="age" placeholder="Enter Age" min="15" max="99"
+                            value="{{data.age}}">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>City</label>
+                            <input type="text" class="form-control" name="city" placeholder="Enter City" value="{{data.city}}">
+                        </div>
+                        <div class="col-md-6">
+                            <label>Gender</label>
+
+                            <select name="gender"  class="form-control">
+                                <option value="Male">Male</option>
+
+                                {% if data.gender == "Female" %}
+                                <option value="Female" selected>Female</option>
+                                {% else %}
+                                <option value="Female">Female</option>
+                                {% endif %}
+
+                                {% if data.gender == "Others" %}
+                                <option value="Others" selected>Others</option>
+                                {% else %}
+                                <option value="Others">Others</option>
+                                {% endif %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" name="changeprofile" value="Save Changes" class="btn btn-primary" style="width:50%;border-radius:20px;">
+                </div>
+
+
+            </form>
+        </div>
+        </center>
+    </div>
+</div>
+{% else %}
+<center>
+<<h2> login man!! </h2>
+</center>
+{% endif %}
+{% endblock %}

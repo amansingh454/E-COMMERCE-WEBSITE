@@ -1,0 +1,42 @@
+<!-- FOOTER -->
+{% load static %}
+	<div  id="footerSection">
+	<div class="container">
+		<div class="row">
+			<div class="span3">
+				<h5>ACCOUNT</h5>
+				{% if request.user.is_authenticated %}
+					<a href="{% url 'logout' %}">LOGOUT</a>
+				{% else %}
+					<a href="{% url 'login' %}">LOGIN</a>
+				{% endif %}
+				{% if request.user.is_staff %}
+	 		<li class=""><a href="{% url 'sellerdashboard' %}">My Profile</a></li>
+		  {% else %}
+		  	<li class=""><a href="{% url 'custdashboard' %}">My Profile</a></li>
+		  {% endif %}
+			 </div>
+			<div class="span3">
+				<h5>INFORMATION</h5>
+				<a href="{% url 'about' %}">ABOUT</a>
+				<a href="{% url 'contact' %}">CONTACT</a>
+				<a href="{% url 'legal_notice' %}">LEGAL NOTICE</a>
+				<a href="{% url 'tac'%}">TERMS AND CONDITIONS</a>
+				<a href="{% url 'faq'%}">FAQ</a>
+			 </div>
+			<div class="span3">
+				<h5>OUR OFFERS</h5>
+				<a href="{% url 'index' %}">NEW PRODUCTS</a>
+				<a href="{% url 'sellers' %}">TOP SELLERS</a>
+				<a href="{% url 'special_offers' %}">SPECIAL OFFERS</a>
+			 </div>
+			<div id="socialMedia" class="span3 pull-right">
+				<h5>SOCIAL MEDIA </h5>
+				<a href="#"><img width="60" height="60" src="{% static 'themes/images/facebook.png'%}" title="facebook" alt="facebook"/></a>
+				<a href="#"><img width="60" height="60" src="{% static 'themes/images/twitter.png'%}" title="twitter" alt="twitter"/></a>
+				<a href="#"><img width="60" height="60" src="{% static 'themes/images/youtube.png'%}" title="youtube" alt="youtube"/></a>
+			 </div>
+		 </div>
+		<p class="pull-right">&copy; Bootshop</p>
+	</div><!-- Container End -->
+	</div>

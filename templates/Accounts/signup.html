@@ -1,0 +1,114 @@
+{% extends 'partials/base.html'%}
+{% load static %}
+{% block content %}
+
+<div id="mainBody">
+	<div class="container">
+	<div class="row">
+	<div class="span9">
+    <ul class="breadcrumb">
+		<li><a href="{% url 'index' %} ">Home</a> <span class="divider">/</span></li>
+		<li class="active">Signup</li>
+    </ul>
+		{% include 'partials/alerts.html' %}
+	<h3> SIGNUP</h3>
+	<hr class="soft"/>
+
+	<div class="row">
+		<center>
+		<div class="span4">
+			<div class="well">
+			<h5>CREATE YOUR ACCOUNT</h5><br/>
+			Enter your e-mail address to create an account.<br/><br/><br/>
+			<form action="{% url 'signup' %}" method="post" >
+				{% csrf_token %}
+		<div class="control-group">
+			<label class="control-label" for="first_name">First name <sup>*</sup></label>
+			<div class="controls">
+			  <input type="text" name="first_name" placeholder="First Name">
+			</div>
+		 </div>
+		 <div class="control-group">
+			<label class="control-label" for="last_name">Last name <sup>*</sup></label>
+			<div class="controls">
+			  <input type="text" name="last_name" placeholder="Last Name">
+			</div>
+		 </div>
+		<div class="control-group">
+			<label class="control-label" for="user_name">User name <sup>*</sup></label>
+			<div class="controls">
+			  <input type="text" name="user_name" placeholder="User Name">
+			</div>
+		 </div>
+		<div class="control-group">
+		<label class="control-label" for="email">Email <sup>*</sup></label>
+		<div class="controls">
+		  <input type="text" name="email" placeholder="Email" id="email">
+		</div>
+	  </div>
+	<div class="control-group">
+		<label class="control-label" for="password">Password <sup>*</sup></label>
+		<div class="controls">
+		  <input type="password" name="password" placeholder="Password">
+		</div>
+	  </div>
+	<div class="control-group">
+		<label class="control-label" for="password2">Confirm Password <sup>*</sup></label>
+		<div class="controls">
+		  <input type="password" name="password2" placeholder="Confirm Password">
+		</div>
+	</div>
+	<div class="control-group">
+		<label class="control-label" for="mobile">Mobile Phone </label>
+		<div class="controls">
+		  <input type="text"  name="mobile" id="mobile" placeholder="Mobile Phone"/>
+		</div>
+	</div>
+	<div class="control-group">
+		<label class="control-label" for="user_type">User Type</label>
+			<select name="user_type" class="controls">
+				<option value="cust">I am Customer</option>
+				<option value="sell">I am Seller</option>
+			</select>
+	</div>
+	<p><sup>*</sup>Required field	</p>
+			  <div class="controls">
+			  <button type="submit"  id="submitbtn" class="btn block btn btn-success">Create Your Account</button>
+			  </div>
+			</form>
+		</div>
+		</div>
+
+</center>
+
+</div>
+</div></div>
+</div>
+</div>
+<!--<script>
+	function checkemail(){
+	        let email = document.getElementById("email").value;
+        $.ajax({
+            url:"{% url 'check_user' %}",
+            type:"get",
+            data:{email:email},
+            success:function(data){
+                if(data=="Email already taken"){
+                    $("#email").html("This username already taken").addClass("text-danger");
+                    $("#email").addClass("alert alert-danger");
+                    $("#submitbtn").attr("disabled","disabled");
+                }else{
+                    $("#email").html("");
+                    $("#email").removeClass("alert alert-danger")
+                    $("#submitbtn").removeAttr("disabled");
+                }
+            }
+        })
+
+    }
+</script>-->
+
+
+{% endblock %}
+<!-- MainBody End ============================= -->
+

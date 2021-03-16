@@ -1,0 +1,27 @@
+{% extends 'partials/main_base4_dashboard.html'%}
+{% load static %}
+{% block content %}
+ {% if user.is_superuser %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 mt-4">
+                <div class="jumbotron">
+                    <h1>Sorry Mr./Miss {{user.username}} You are not allowed Here</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+{% else %}
+<div class="container-fluid">
+    <div class="row">
+        <!-- left side menu -->
+        <!-- right side menu -->
+        <div class="col-md-10">
+            {% block dashboard %}
+
+            {% endblock %}
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

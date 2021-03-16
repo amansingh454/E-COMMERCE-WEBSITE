@@ -1,0 +1,75 @@
+{% extends 'partials/dashboard_base.html' %}
+{% load static %}
+
+{% load bootstrap4 %}
+{% block dashboard %}
+<center>
+    <div id="mainBody">
+	<div class="container">
+	<div class="row">
+	<div class="span9">
+    <ul class="breadcrumb">
+		<li><a href="{% url 'index' %}">Home</a> <span class="divider">/</span></li>
+		<li class="active">Change password</li>
+    </ul>
+	<h3> CHANGE YOUR PASSWORD?</h3>
+	<hr class="soft"/>
+	<div class="row">
+		<div class="span9" style="min-height:900px">
+			<div class="well">
+                 {% include 'partials/alerts.html'%}
+            {% if user.is_superuser %}
+                <h2>SUPER USER YOU ARE NOT ALLOWED TO CHANGE HERE</h2>
+            {% elif not user.is_authenticated %}
+                <h2> PLEASE LOG IN</h2>
+            {% else %}
+                    <form method="post" action="{% url 'changepass'%}">
+                        {% csrf_token %}
+                        <div class="control-group">
+                        <label class="control-label" for="username">USER NAME </label>
+                        <div class="controls">
+                          <input class="span3"  type="text" id="username" name="username" placeholder="user name">
+                        </div>
+                      </div>
+                      <div class="control-group">
+                        <label class="control-label" for="oldpass">OLD PASSWORD</label>
+                        <div class="controls">
+                          <input class="span3"  type="password" id="oldpass" name="oldpass" placeholder="old password">
+                        </div>
+                      </div>
+                        <div class="control-group">
+                        <label class="control-label" for="newpass">NEW PASSWORD</label>
+                        <div class="controls">
+                          <input class="span3"  type="password" id="newpass" name="newpass" placeholder="new password">
+                        </div>
+                      </div>
+                        <div class="control-group">
+                        <label class="control-label" for="cnfrmpass">CONFIRM NEW PASSWORD</label>
+                        <div class="controls">
+                          <input class="span3"  type="password" id="cnfrmpass" name="cnfrmpass" placeholder="confirm new password">
+                        </div>
+                      </div>
+                      <div class="controls">
+                      <button type="submit" class="btn block">Submit</button>
+                      </div>
+                    </form>
+                </div>
+                </div>
+            </div>
+            {% endif %}
+
+        </div>
+        </div>
+        </div>
+        </div>
+
+        </center>
+
+
+
+
+
+
+
+
+{% endblock %}

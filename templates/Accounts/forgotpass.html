@@ -1,0 +1,45 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block content %}
+
+<div id="mainBody">
+	<div class="container">
+	<div class="row">
+<!-- Sidebar ================================================== -->
+        {% include 'partials/common item.html' %}
+
+	<div class="span9">
+    <ul class="breadcrumb">
+		<li><a href="{% url 'index' %}">Home</a> <span class="divider">/</span></li>
+		<li class="active">Forgot password?</li>
+    </ul>
+	<h3> FORGOT YOUR PASSWORD?</h3>
+	<hr class="soft"/>
+
+	<div class="row">
+		<div class="span9" style="min-height:900px">
+			<div class="well">
+			<h5>Reset your password</h5><br/>
+			Please enter the email address for your account. A verification code will be sent to you. Once you have received the verification code, you will be able to choose a new password for your account.<br/><br/><br/>
+			<form method="post" action="{% url 'forgotpass' %}">
+				{% csrf_token %}
+			  <div class="control-group">
+				<label class="control-label" for="user_name">USER NAME</label>
+				<div class="controls">
+				  <input class="span3"  type="text" id="user_name" name="user_name" placeholder="USER NAME">
+				</div>
+			  </div>
+			  <div class="controls">
+			  <button type="submit" class="btn block">Submit</button>
+			  </div>
+			</form>
+		</div>
+		</div>
+	</div>
+
+</div>
+</div>
+</div>
+</div>
+{% endblock %}
+<!-- MainBody End ============================= -->
